@@ -25,14 +25,14 @@ class UserProfileManager(BaseUserManager):
         user.is_superuser = True
         user.is_staff = True
         user.save(using=self._db)
-        
+
         return user
 
-class UserProfile(AbstractBaseUser, PermissionMixin):
+class UserProfile(AbstractBaseUser, PermissionsMixin):
     """Database Model for users in the system"""
     # Add fields to models
     email = models.EmailField(max_length=255, unique=True)
-    name    = models.CharField(max_lenth=255)
+    name    = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
