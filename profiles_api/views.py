@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status # handy HTTP status code to return from API
 from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
+from rest_framework import filters
 
 from profiles_api import serializers
 from profiles_api import models
@@ -99,4 +100,6 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.UserProfileSerializer
     queryset = models.UserProfile.objects.all()
     authentication_classes = (TokenAuthentication,) # how and which mechanism user is using
-    permission_classes = (permissions.UpdateOwnProfile,)
+    permission_classes = (permissions.UpdateOwnProfile,) # Add permission function to be called for each request
+    filter_backends = (filters.SearchFilter,) # filter backets 1 or more
+    search_fields = ('name', 'email') # search fields
